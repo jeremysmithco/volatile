@@ -4,4 +4,20 @@
   </h1>
 
   <%= render 'form', location: @location %>
+
+  <hr class="my-8">
+
+  <div>
+    <% if @location.latitude.present? %>
+      Coordinates:
+      <%= @location.latitude %>/<%= @location.longitude %>
+    <% end %>
+  </div>
+
+  <div>
+    <% if @location.timezone.present? %>
+      Timezone:
+      <%= @location.timezone %>
+    <% end %>
+  </div>
 </section>

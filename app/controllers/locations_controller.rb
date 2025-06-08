@@ -20,6 +20,7 @@ class LocationsController < ApplicationController
     @location = Location.new(location_params)
 
     if @location.save
+      @location.geocoding.operate_later
       redirect_to [@location], notice: 'Location was successfully created.'
     else
       render :new, status: :unprocessable_entity
@@ -28,6 +29,7 @@ class LocationsController < ApplicationController
 
   def update
     if @location.update(location_params)
+      @location.geocoding.operate_later
       redirect_to [@location], notice: 'Location was successfully updated.'
     else
       render :edit, status: :unprocessable_entity
