@@ -1,0 +1,54 @@
+class ActiveOperator::Operation < ApplicationRecord
+  belongs_to :record, polymorphic: true
+
+  attribute :version, :integer
+
+  def operator
+    operator_class.new(self)
+  end
+
+  delegate :request, :process, to: :operator
+
+  def operate!
+    request!
+    process!
+  end
+
+  def request!
+    return false if received?
+
+    update!(response: request, received_at: Time.current)
+  end
+
+  def process!
+    return false if !received?
+    return false if processed?
+
+    ActiveRecord::Base.transaction do
+      process
+      update!(processed_at: Time.current)
+    end
+  end
+
+  def fail!
+    update!(failed_at: Time.current)
+  end
+
+  def received?
+    received_at.present?
+  end
+
+  def processed?
+    processed_at.present?
+  end
+
+  def failed?
+    failed_at.present?
+  end
+
+  private
+
+  def operator_class
+    "#{name.to_s.camelize}#{"V#{version}"}".constantize
+  end
+end
