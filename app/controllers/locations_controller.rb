@@ -21,7 +21,7 @@ class LocationsController < ApplicationController
 
     if @location.save
       @location.geocoding.operate_later
-      redirect_to [@location], notice: 'Location was successfully created.'
+      redirect_to [@location], notice: "Location was successfully created."
     else
       render :new, status: :unprocessable_entity
     end
@@ -30,7 +30,7 @@ class LocationsController < ApplicationController
   def update
     if @location.update(location_params)
       @location.geocoding.operate_later
-      redirect_to [@location], notice: 'Location was successfully updated.'
+      redirect_to [@location], notice: "Location was successfully updated."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -38,7 +38,7 @@ class LocationsController < ApplicationController
 
   def destroy
     @location.destroy
-    redirect_to [:locations], notice: 'Location was successfully destroyed.'
+    redirect_to [:locations], notice: "Location was successfully destroyed."
   end
 
   private
