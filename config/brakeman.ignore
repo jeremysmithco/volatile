@@ -1,0 +1,29 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dangerous Eval",
+      "warning_code": 13,
+      "fingerprint": "74e09435b1f3143e64226c0a8fe1e0f6b375d423b8795e022e86f39c9ae29fce",
+      "check_name": "Evaluation",
+      "message": "Dynamic string evaluated as code",
+      "file": "lib/active_operator.rb",
+      "line": 11,
+      "link": "https://brakemanscanner.org/docs/warning_types/dangerous_eval/",
+      "code": "generated_association_methods.class_eval(\"          def #{name}\\n            @active_operation_operables ||= {}\\n            @active_operation_operables[:#{name}] ||= ActiveOperator::Operable.new(self, \\\"#{name}\\\", #{version})\\n          end\\n\", \"lib/active_operator.rb\", 12)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "ActiveOperator::Model",
+        "method": "has_operation"
+      },
+      "user_input": null,
+      "confidence": "Weak",
+      "cwe_id": [
+        913,
+        95
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.0.2"
+}

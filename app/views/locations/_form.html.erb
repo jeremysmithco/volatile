@@ -1,0 +1,42 @@
+<%= form_with(model: [location]) do |form| %>
+  <% if location.errors.any? %>
+    <div id="error_explanation" class="text-red-500 mb-6">
+      <strong><%= pluralize(location.errors.count, "error") %> prohibited this location from being saved:</strong>
+
+      <ul>
+        <% location.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-6">
+    <%= form.label :street, class: "block font-medium" %>
+    <%= form.text_field :street, class: "w-full" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :city, class: "block font-medium" %>
+    <%= form.text_field :city, class: "w-full" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :state, class: "block font-medium" %>
+    <%= form.text_field :state, class: "w-full" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :zip, class: "block font-medium" %>
+    <%= form.text_field :zip, class: "w-full" %>
+  </div>
+
+  <div class="mb-6">
+    <%= form.label :country, class: "block font-medium" %>
+    <%= form.text_field :country, class: "w-full" %>
+  </div>
+
+  <div>
+    <%= form.submit nil, class: "text-neutral-100 bg-neutral-500 px-4 py-2" %>
+  </div>
+<% end %>
