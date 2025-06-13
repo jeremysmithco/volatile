@@ -34,17 +34,9 @@ class ActiveOperator::Operation < ApplicationRecord
     update!(failed_at: Time.current)
   end
 
-  def received?
-    received_at.present?
-  end
-
-  def processed?
-    processed_at.present?
-  end
-
-  def failed?
-    failed_at.present?
-  end
+  def received?  = received_at?
+  def processed? = processed_at?
+  def failed?    = failed_at?
 
   private
 
