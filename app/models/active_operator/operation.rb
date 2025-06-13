@@ -1,15 +1,20 @@
 class ActiveOperator::Operation < ApplicationRecord
   belongs_to :record, polymorphic: true
 
-  def operator
-    operator_class.new(self)
-  end
+  def perform
+    save! unless persisted?
 
-  delegate :request, :process, to: :operator
-
-  def operate!
     request!
     process!
+  rescue
+    errored!
+    raise
+  end
+
+  def perform_later
+    save! unless persisted?
+
+    ActiveOperator::PerformOperationJob.perform_later(self)
   end
 
   def request!
@@ -28,17 +33,21 @@ class ActiveOperator::Operation < ApplicationRecord
     end
   end
 
-  def fail!
-    update!(failed_at: Time.current)
+  def errored!
+    return false unless persisted?
+
+    update!(errored_at: Time.current)
   end
 
   def received?  = received_at?
   def processed? = processed_at?
-  def failed?    = failed_at?
+  def errored?   = errored_at?
 
-  private
+  def request
+    raise NotImplementedError, "Operations must implement the `request` method"
+  end
 
-  def operator_class
-    "#{name.to_s.camelize}#{"V#{version}"}".constantize
+  def process
+    raise NotImplementedError, "Operations must implement the `process` method"
   end
 end

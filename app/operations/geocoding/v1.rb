@@ -1,4 +1,4 @@
-class GeocodingV1 < ApplicationOperator
+class Geocoding::V1 < ApplicationOperation
   def request
     faraday.get(
       "https://api.geocod.io/v1.8/geocode",

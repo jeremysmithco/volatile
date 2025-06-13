@@ -1,5 +1,5 @@
 class Location < ApplicationRecord
-  has_operation :geocoding
+  has_operation :geocoding, class_name: "Geocoding::V1"
 
   validates :street, presence: true
   validates :city, presence: true

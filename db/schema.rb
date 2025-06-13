@@ -12,14 +12,13 @@
 
 ActiveRecord::Schema[8.0].define(version: 2025_06_08_020418) do
   create_table "active_operator_operations", force: :cascade do |t|
+    t.string "type", null: false
     t.string "record_type", null: false
     t.integer "record_id", null: false
-    t.string "name"
-    t.integer "version"
-    t.json "response"
+    t.json "response", default: "{}", null: false
     t.datetime "received_at"
     t.datetime "processed_at"
-    t.datetime "failed_at"
+    t.datetime "errored_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["record_type", "record_id"], name: "index_active_operator_operations_on_record"

@@ -1,4 +1,6 @@
-class ApplicationOperator < ActiveOperator::Operator
+class ApplicationOperation < ActiveOperator::Operation
+  self.abstract_class = true
+
   private
 
   def faraday
