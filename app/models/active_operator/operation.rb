@@ -1,8 +1,6 @@
 class ActiveOperator::Operation < ApplicationRecord
   belongs_to :record, polymorphic: true
 
-  attribute :version, :integer
-
   def operator
     operator_class.new(self)
   end
