@@ -1,4 +1,4 @@
-class ActiveOperator::PerformOperationJob < ActiveStorage::BaseJob
+class ActiveOperator::PerformOperationJob < ActiveJob::Base
   discard_on ActiveRecord::RecordNotFound
 
   def perform(operation)
