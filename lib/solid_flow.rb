@@ -69,7 +69,7 @@ module SolidFlow
 
     def step_jobs
       method_name, args, kwargs = steps.at(cursor.position)
-      jobs = Array.wrap(public_send(method_name, *args, **kwargs))
+      jobs = Array(public_send(method_name, *args, **kwargs))
 
       raise EnqueueError, "Workflow step :#{method_name} contains no jobs to enqueue" if jobs.empty?
       raise EnqueueError, "Workflow step :#{method_name} contains objects that cannot be enqueued" unless jobs.all?(ActiveJob::Base)
